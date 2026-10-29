@@ -1,0 +1,28 @@
+---
+// Galería editorial: retícula asimétrica (una foto grande y el resto en tamaños alternos), esquinas rectas y sombra suave.
+// Fotos en site.yaml → secciones.<id>.galeria (lista de rutas).
+import { seccion, site } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const formas = ['reticula-grande', 'reticula-media', 'reticula-media', 'reticula-ancha', 'reticula-ancha'];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id}>
+      <Titular alinear="centro" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {s.galeria.length > 0 && (
+        <ul class="reticula">
+          {s.galeria.map((foto, i) => (
+            <li class={formas[i % formas.length]}>
+              <Imagen src={foto} alt={`${site.nombre}, foto ${i + 1}`} ancho={1200} alto={900} class="foto h-full w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}

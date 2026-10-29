@@ -1,0 +1,43 @@
+---
+// Contacto editorial: teléfono, WhatsApp y email en tres columnas con letra grande, y formulario centrado debajo.
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id}>
+      <Titular alinear="centro" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {(c.telefono || c.whatsapp || c.email) && (
+        <ul class="vias">
+          {c.telefono && (
+            <li>
+              <span class="vias-etiqueta">Teléfono</span>
+              <a class="vias-dato" href={tel(c.telefono)}>{c.telefono}</a>
+            </li>
+          )}
+          {c.whatsapp && (
+            <li>
+              <span class="vias-etiqueta">WhatsApp</span>
+              <a class="vias-dato" href={whatsapp(c.whatsapp, `Hola, os escribo desde la web de ${site.nombre}`)} rel="noopener" target="_blank">{c.whatsapp}</a>
+            </li>
+          )}
+          {c.email && (
+            <li>
+              <span class="vias-etiqueta">Email</span>
+              <a class="vias-dato break-words" href={`mailto:${c.email}`}>{c.email}</a>
+            </li>
+          )}
+        </ul>
+      )}
+      <div class="panel mx-auto mt-14 max-w-2xl">
+        <FormularioContacto prefijo={`c-${Astro.props.id}`} boton="Enviar" />
+      </div>
+    </Seccion>
+  )
+}

@@ -1,0 +1,21 @@
+id: alojamiento-rural
+nombre: Casa rural y hotel
+descripcion: Web tranquila y editorial para casas rurales y hoteles, con habitaciones, entorno, fotos y reservas.
+sectores: [casa-rural, hotel, alojamiento, turismo, camping]
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: habitaciones, nombre: Habitaciones }
+  - { id: entorno, nombre: Qué hacer cerca }
+  - { id: galeria, nombre: Fotos }
+  - { id: servicios, nombre: Servicios }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: como-llegar, nombre: Cómo llegar }
+  - { id: reservas, nombre: Reservas }
+  - { id: contacto, nombre: Contacto }
+estilo: natural
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-alojamiento-rural.noexpertise.com
+activa: true
+orden: 90

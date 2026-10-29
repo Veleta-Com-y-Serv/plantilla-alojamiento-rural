@@ -1,0 +1,129 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas siempre planas (nunca una lista dentro de un elemento de lista). Precios siempre entre comillas.
+nombre: La Huerta de Abril
+eslogan: Casa rural con huerta y castaños en Hervás, Valle del Ambroz.
+sector: casa-rural
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#2f4a3a"
+  acento: "#95542e"
+  fondo: "#f6f1e7"
+  texto: "#262a24"
+contacto:
+  telefono: "927 47 30 66"
+  email: hola@lahuertadeabril.es
+  direccion: Camino de la Fuente Chiquita 6, 10700 Hervás (Cáceres)
+  horario: "Llegadas de 16:00 a 21:00. Salidas hasta las 12:00. Te atendemos por teléfono de 9:00 a 21:00."
+  whatsapp: "+34 622 47 30 66"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Habitaciones, url: "/#habitaciones" }
+  - { texto: El entorno, url: "/#entorno" }
+  - { texto: Fotos, url: "/#galeria" }
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: Cómo llegar, url: "/#como-llegar" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Reservar, url: "/#reservas" }
+seo:
+  titulo: La Huerta de Abril · Casa rural en Hervás (Valle del Ambroz)
+  descripcion: "Casa rural de piedra y madera en Hervás, con huerta, chimenea y tres habitaciones. A diez minutos a pie de la judería y junto a la Vía Verde de la Plata."
+  tipo: BedAndBreakfast
+marca_pie: false
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: "Hervás · Valle del Ambroz"
+    titulo: Despertar entre castaños
+    texto: "Una casa de piedra y madera con huerta, a diez minutos a pie de la judería. Tres habitaciones, chimenea y desayuno con lo que da la tierra."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Consultar fechas, url: "/#reservas" }
+    cta_secundario: { texto: Ver las habitaciones, url: "/#habitaciones" }
+    items:
+      - { titulo: Desayuno casero, icono: taza }
+      - { titulo: Chimenea de leña, icono: fuego }
+      - { titulo: Se admiten mascotas, icono: huella }
+
+  habitaciones:
+    activa: true
+    antetitulo: Dormir
+    titulo: Tres habitaciones, cada una con su luz
+    texto: "Todas con baño propio, ropa de cama de algodón y vistas a la huerta o a la sierra."
+    habitaciones:
+      - { nombre: El Castaño, texto: "La más tranquila de la casa, con vigas de castaño y ventana a la huerta. Cama de matrimonio de 160.", precio: "desde 85 €/noche", personas: "2 personas", extras: "Baño con ducha, desayuno incluido, calefacción, vistas a la huerta", imagen: /fotos/habitacion-1.jpg }
+      - { nombre: La Solana, texto: "Abuhardillada y luminosa, con un pequeño balcón orientado al sur para ver caer la tarde sobre la sierra.", precio: "desde 95 €/noche", personas: "2 personas + cuna", extras: "Balcón, bañera exenta, desayuno incluido, escritorio", imagen: /fotos/habitacion-2.jpg }
+      - { nombre: El Pajar, texto: "En el antiguo pajar, con dos alturas: cama de matrimonio abajo y dos camas en el altillo. Ideal para familias.", precio: "desde 120 €/noche", personas: "Hasta 4 personas", extras: "Salón con chimenea, entrada independiente, admite mascotas, desayuno incluido", imagen: /fotos/habitacion-3.jpg }
+
+  entorno:
+    activa: true
+    antetitulo: Alrededor
+    titulo: Qué hacer cerca
+    texto: "Hervás es buen punto de partida para conocer el norte de Cáceres sin coger el coche cada día."
+    items:
+      - { titulo: La judería de Hervás, texto: "Calles empedradas, casas de adobe y madera y el puente sobre el río Ambroz. A diez minutos a pie.", imagen: /fotos/entorno-1.jpg, icono: casa }
+      - { titulo: Vía Verde de la Plata, texto: "Antiguo trazado del tren, llano y sombreado. Perfecto para andar o ir en bici hasta Baños de Montemayor.", imagen: /fotos/entorno-2.jpg, icono: bici }
+      - { titulo: El castañar de El Gasco, texto: "Castaños centenarios a media hora a pie. En otoño, el bosque se vuelve dorado.", imagen: /fotos/entorno-3.jpg, icono: arbol }
+      - { titulo: Mesa del valle, texto: "Cerezas del Jerte en junio, setas en otoño y el calderillo de la zona. Te recomendamos dónde comer.", imagen: /fotos/entorno-4.jpg, icono: cubiertos }
+
+  galeria:
+    activa: true
+    antetitulo: Fotos
+    titulo: La casa por dentro y por fuera
+    galeria:
+      - /fotos/galeria-1.jpg
+      - /fotos/galeria-2.jpg
+      - /fotos/galeria-3.jpg
+      - /fotos/galeria-4.jpg
+      - /fotos/galeria-5.jpg
+
+  servicios:
+    activa: true
+    antetitulo: En la casa
+    titulo: Pensado para descansar
+    items:
+      - { titulo: Desayuno casero, texto: "Pan del horno del pueblo, mermeladas de la huerta y huevos de nuestras gallinas.", icono: taza }
+      - { titulo: Wifi en toda la casa, texto: "Por si necesitas trabajar un rato. O no.", icono: wifi }
+      - { titulo: Mascotas bienvenidas, texto: "En El Pajar, con jardín cerrado.", icono: huella }
+      - { titulo: Chimenea de leña, texto: "En el salón común y en El Pajar. La leña corre de nuestra cuenta.", icono: fuego }
+      - { titulo: Aparcamiento, texto: "Gratis, dentro de la finca.", icono: parking }
+
+  opiniones:
+    activa: true
+    antetitulo: Huéspedes
+    titulo: Lo que cuentan al irse
+    testimonios:
+      - { texto: "Hemos estado en muchas casas rurales y esta es de las que se recuerdan: silencio, un desayuno que no se acaba y una acogida de verdad.", autor: Marta y Jorge, nota: "Octubre de 2026" }
+      - { texto: "Fuimos con los niños y el perro a El Pajar. Repetiremos en otoño para ver el castañar.", autor: Familia Prieto, nota: Booking }
+      - { texto: "La Vía Verde empieza casi en la puerta. Alquilamos bicis y fue el mejor día del viaje.", autor: Andrés L., nota: Google }
+
+  como-llegar:
+    activa: true
+    antetitulo: Cómo llegar
+    titulo: En el norte de Cáceres
+    texto: "Estamos a la salida del pueblo, en un camino asfaltado que sube hacia la sierra. Te mandamos la ubicación exacta al reservar."
+    imagen: /placeholders/plano.svg
+    cta: { texto: Abrir en Google Maps, url: "" }
+    items:
+      - { titulo: En coche, texto: "Por la Autovía Ruta de la Plata (A-66), salida de Hervás. A 2 h 45 min de Madrid y 1 h 15 min de Salamanca.", icono: coche }
+      - { titulo: En tren, texto: "La estación más cercana es Plasencia, a 45 km. Desde allí, autobús o taxi.", icono: tren }
+      - { titulo: En autobús, texto: "Hay líneas diarias desde Madrid, Salamanca y Plasencia. La parada está a 10 minutos a pie.", icono: bus }
+
+  reservas:
+    activa: true
+    antetitulo: Reservas
+    titulo: Cuéntanos cuándo quieres venir
+    texto: "Dinos las fechas y cuántos sois, y te respondemos en el día con la disponibilidad y el precio final."
+    cta: { texto: Reservar por WhatsApp, url: "https://wa.me/34622473066?text=Hola%2C%20quiero%20consultar%20fechas" }
+    enlace_reservas: ""
+    nota: "Estancia mínima de dos noches en fines de semana y puentes. Cancelación gratuita hasta siete días antes."
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: ¿Alguna pregunta antes de venir?
+    texto: "Escríbenos o llámanos. Estamos encantados de ayudarte a preparar tu escapada."

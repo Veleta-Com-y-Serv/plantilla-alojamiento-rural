@@ -1,0 +1,42 @@
+---
+// Apartado de texto genérico, en estilo editorial: foto con sombra suave a un lado y texto en columna de lectura;
+// sin foto, una sola columna estrecha. Lista con iconos y botón opcionales.
+// Lo usan los apartados nuevos que pide el cliente (site.yaml: `tipo: texto`).
+import { seccion, parrafos } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id}>
+      <div class:list={['grid items-center gap-12', s.imagen ? 'md:grid-cols-2 md:gap-20' : 'max-w-2xl mx-auto']}>
+        {s.imagen && <Imagen src={s.imagen} alt="" ancho={1200} alto={900} class="foto aspect-[4/3] w-full object-cover" />}
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} class="!mb-6" />
+          <div class="space-y-4 leading-relaxed opacity-90">
+            {parrafos(s.texto).map((p) => <p>{p}</p>)}
+          </div>
+          {s.items.length > 0 && (
+            <ul class="llegar">
+              {s.items.map((it) => (
+                <li>
+                  <Icono nombre={it.icono} tam={22} class="mt-0.5 shrink-0 text-acento" />
+                  <div>
+                    <p class="llegar-titulo">{it.titulo}</p>
+                    {it.texto && <p class="mt-1 text-[.95rem] opacity-80">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && <a class="btn mt-8" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+    </Seccion>
+  )
+}

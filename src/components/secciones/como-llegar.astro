@@ -1,0 +1,53 @@
+---
+// Cómo llegar: texto, dirección en grande, formas de llegar (`items` con icono: coche, tren, bus…),
+// botón a Google Maps con la dirección de site.yaml → contacto (texto del botón en `cta.texto`) y plano (`imagen`).
+import { seccion, site, mapa } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const destino = s?.cta?.url || mapa(c.direccion);
+const etiqueta = s?.cta?.texto || 'Abrir en Google Maps';
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id}>
+      <div class:list={['grid gap-12', s.imagen ? 'lg:grid-cols-[6fr_5fr] lg:gap-20 lg:items-center' : 'max-w-3xl']}>
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {c.direccion && <p class="direccion-grande">{c.direccion}</p>}
+          {s.items.length > 0 && (
+            <ul class="llegar">
+              {s.items.map((it) => (
+                <li>
+                  <Icono nombre={it.icono || 'ruta'} tam={24} class="mt-0.5 shrink-0 text-acento" />
+                  <div>
+                    <p class="llegar-titulo">{it.titulo}</p>
+                    {it.texto && <p class="mt-1 text-[.95rem] opacity-80">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {destino && (
+            <a class="btn mt-10" href={destino} rel="noopener" target="_blank">
+              <Icono nombre="mapa" tam={18} /> {etiqueta}
+            </a>
+          )}
+        </div>
+        {s.imagen &&
+          (destino ? (
+            <a href={destino} rel="noopener" target="_blank" aria-label={etiqueta} class="block">
+              <Imagen src={s.imagen} alt="Plano de situación" ancho={1200} alto={900} class="foto aspect-[4/3] w-full object-cover" />
+            </a>
+          ) : (
+            <Imagen src={s.imagen} alt="Plano de situación" ancho={1200} alto={900} class="foto aspect-[4/3] w-full object-cover" />
+          ))}
+      </div>
+    </Seccion>
+  )
+}

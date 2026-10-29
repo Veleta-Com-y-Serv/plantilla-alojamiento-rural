@@ -1,0 +1,36 @@
+---
+// Reservas: texto, botón (`cta`, normalmente WhatsApp o teléfono), `nota` y formulario con llegada, salida y personas (mailto).
+// Opcional `enlace_reservas`: web externa de reservas; si existe, aparece un botón que la abre
+// (su texto sale de `cta_secundario.texto`, si lo hay).
+import { seccion, site, externo } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const enlace = s?.enlace_reservas && externo(s.enlace_reservas) ? s.enlace_reservas : '';
+const etiquetaEnlace = s?.cta_secundario?.texto || 'Reservar en línea';
+const nueva = (u: string) => (externo(u) ? { rel: 'noopener', target: '_blank' } : {});
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-tierra">
+      <div class="grid gap-12 lg:grid-cols-[5fr_6fr] lg:gap-20">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {(s.cta?.url || enlace) && (
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+              {s.cta?.url && <a class="btn" href={s.cta.url} {...nueva(s.cta.url)}>{s.cta.texto}</a>}
+              {enlace && <a class="btn-sec" href={enlace} rel="noopener" target="_blank">{etiquetaEnlace}</a>}
+            </div>
+          )}
+          {s.nota && <p class="nota">{s.nota}</p>}
+        </div>
+        <div class="panel">
+          <FormularioContacto estancia prefijo={`r-${Astro.props.id}`} boton="Consultar disponibilidad" asunto={`Reserva en ${site.nombre}`} />
+        </div>
+      </div>
+    </Seccion>
+  )
+}

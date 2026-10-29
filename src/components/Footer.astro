@@ -1,0 +1,70 @@
+---
+// Pie claro: nombre, dirección en grande, teléfono, email y horario; plano enlazado a Google Maps; redes y aviso legal.
+// «Web creada con NoExpertise» se muestra si site.yaml → marca_pie no es false.
+import { site, tel, mapa } from '../data/site';
+import Icono from './ui/Icono.astro';
+import Imagen from './ui/Imagen.astro';
+interface Props { variante?: string }
+const { variante = 'editorial' } = Astro.props;
+const c = site.contacto;
+const redes = Object.entries(site.redes).filter(([, url]) => url);
+const anio = new Date().getFullYear();
+---
+
+<footer class={`pie pie--${variante}`}>
+  <div class="contenedor pie-editorial">
+    <div>
+      <p class="pie-nombre">{site.nombre}</p>
+      {
+        c.direccion && (
+          <p class="pie-direccion">
+            <a href={mapa(c.direccion)} rel="noopener" target="_blank">{c.direccion}</a>
+          </p>
+        )
+      }
+      <ul class="pie-lista pie-lista--datos">
+        {c.telefono && <li><a href={tel(c.telefono)}>{c.telefono}</a></li>}
+        {c.email && <li><a href={`mailto:${c.email}`}>{c.email}</a></li>}
+        {c.horario && <li>{c.horario}</li>}
+      </ul>
+      {
+        redes.length > 0 && (
+          <ul class="pie-redes">
+            {redes.map(([red, url]) => (
+              <li>
+                <a href={url} rel="noopener" target="_blank" aria-label={red}>
+                  <Icono nombre={red} tam={20} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    {
+      c.direccion && (
+        <a class="pie-mapa" href={mapa(c.direccion)} rel="noopener" target="_blank" aria-label={`Abrir ${c.direccion} en Google Maps`}>
+          <Imagen src="/placeholders/plano.svg" alt="" ancho={1200} alto={900} class="aspect-[4/3] w-full object-cover" />
+        </a>
+      )
+    }
+  </div>
+  {
+    site.menu.length > 0 && (
+      <nav class="contenedor pie-menu" aria-label="Menú del pie">
+        {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+      </nav>
+    )
+  }
+  <div class="contenedor pie-legal">
+    <span>© {anio} {site.nombre}</span>
+    <a href="/aviso-legal">Aviso legal y privacidad</a>
+    {
+      site.marca_pie && (
+        <span class="pie-noexpertise">
+          Web creada con <a href="https://noexpertise.com" rel="noopener">NoExpertise</a>
+        </span>
+      )
+    }
+  </div>
+</footer>

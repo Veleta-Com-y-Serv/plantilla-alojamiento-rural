@@ -1,0 +1,40 @@
+---
+// Opiniones editoriales: la primera, grande y centrada como cita destacada; el resto en dos columnas con filete.
+// `testimonios` [{texto, autor, nota}]; `nota` opcional (de dónde viene). Sin opiniones, la sección no se pinta.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const [primera, ...resto] = s?.testimonios ?? [];
+---
+
+{
+  s && primera && (
+    <Seccion id={Astro.props.id} class="banda-papel">
+      <Titular alinear="centro" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      <figure class="cita-grande">
+        <blockquote>{primera.texto}</blockquote>
+        <figcaption class="cita-autor">
+          {primera.autor}
+          {primera.nota && <span class="cita-nota">{primera.nota}</span>}
+        </figcaption>
+      </figure>
+      {resto.length > 0 && (
+        <ul class="citas">
+          {resto.map((t) => (
+            <li>
+              <figure>
+                <blockquote class="cita-texto">{t.texto}</blockquote>
+                <figcaption class="cita-autor">
+                  {t.autor}
+                  {t.nota && <span class="cita-nota">{t.nota}</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}

@@ -1,0 +1,29 @@
+---
+// Servicios: rejilla de iconos sin tarjeta (desayuno, wifi, mascotas, chimenea, parking…).
+// `items` [{titulo, texto, icono}]. Iconos disponibles en src/components/ui/Icono.astro.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id}>
+      <Titular alinear="centro" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {s.items.length > 0 && (
+        <ul class="iconos">
+          {s.items.map((it) => (
+            <li>
+              <span class="iconos-circulo" aria-hidden="true"><Icono nombre={it.icono} tam={28} /></span>
+              <h3 class="iconos-titulo">{it.titulo}</h3>
+              {it.texto && <p class="iconos-texto">{it.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}

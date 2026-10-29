@@ -1,0 +1,36 @@
+---
+// Entorno (qué hacer cerca): tarjetas apaisadas con foto a la izquierda y texto a la derecha.
+// `items` [{titulo, texto, imagen, icono}]; sin imagen, la tarjeta muestra el icono.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} class="banda-papel">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {s.items.length > 0 && (
+        <ul class="apaisadas">
+          {s.items.map((it) => (
+            <li class="apaisada">
+              {it.imagen ? (
+                <Imagen src={it.imagen} alt={it.titulo} ancho={900} alto={600} class="apaisada-foto foto" />
+              ) : (
+                <span class="apaisada-icono" aria-hidden="true"><Icono nombre={it.icono || 'montana'} tam={32} /></span>
+              )}
+              <div class="apaisada-texto">
+                <h3 class="apaisada-titulo">{it.titulo}</h3>
+                {it.texto && <p class="mt-2 text-[.95rem] leading-relaxed opacity-85">{it.texto}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}

@@ -1,0 +1,194 @@
+/* Casa rural y hotel — estilo natural y editorial: mucho aire, serif (cursiva en la portada) para títulos y sans
+   para el texto, verde bosque + tierra + crema, filetes finos, fotos con esquinas rectas y sombra suave,
+   cabecera con el nombre centrado y el menú debajo, pie claro con la dirección en grande y un plano enlazado.
+   Todo sale de las cuatro variables de color de site.yaml (--c-primario, --c-acento, --c-fondo, --c-texto). */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-titulos: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --fuente-texto: "Gill Sans", "Gill Sans MT", Seravek, "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --radio: 0; --ritmo: 5rem; --ritmo-md: 8.5rem; --ancho: 72rem;
+  /* Derivados (siguen funcionando si el cliente cambia los colores) */
+  --linea: color-mix(in srgb, var(--c-texto) 16%, transparent);
+  --acento-legible: color-mix(in srgb, var(--c-acento) 80%, var(--c-texto));
+  --papel: color-mix(in srgb, var(--c-primario) 6%, var(--c-fondo));
+  --tierra: color-mix(in srgb, var(--c-acento) 11%, var(--c-fondo));
+  --hoja: color-mix(in srgb, var(--c-fondo) 40%, #fff);
+  --sombra: 0 26px 50px -30px rgb(0 0 0 / .55), 0 2px 8px rgb(0 0 0 / .05);
+}
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.04rem; line-height: 1.7; }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; }
+  :focus-visible { outline: 2px solid var(--c-primario); outline-offset: 3px; }
+}
+
+@layer components {
+  .contenedor--ancho { --ancho: 90rem; }
+  .foto { box-shadow: var(--sombra); border-radius: 0; }
+
+  /* Titulares */
+  .antetitulo { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .3em; color: var(--c-primario); }
+  .titulo-seccion { margin-top: .75rem; font-size: clamp(2rem, 4.4vw, 3.05rem); }
+  .titular { max-width: 40rem; margin-bottom: 3.5rem; }
+  .titular--centro { margin-inline: auto; text-align: center; }
+  .filete { display: block; width: 3.5rem; height: 1px; margin-top: 1.5rem; background: var(--c-acento); }
+  .titular--centro .filete { margin-inline: auto; }
+  .titular-texto { margin-top: 1.5rem; font-size: 1.08rem; opacity: .82; }
+
+  /* Botones: rectos; el secundario es un enlace subrayado con flecha */
+  .btn { border-radius: 0; background: var(--c-primario); color: #fff; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; padding: .9rem 1.75rem; min-height: 3rem; max-width: 100%; }
+  .btn:hover { background: color-mix(in srgb, var(--c-primario) 80%, #000); }
+  .btn-sec { padding: .5rem 0; color: var(--c-primario); border-bottom: 1px solid currentColor; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; max-width: 100%; }
+  .btn-sec::after { content: "\2192" / ""; transition: transform .2s ease; }
+  .btn-sec:hover::after { transform: translateX(4px); }
+
+  /* Cabecera editorial */
+  .cabecera--editorial { background: var(--c-fondo); border-bottom: 1px solid var(--linea); }
+  .cabecera-alta { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem; align-items: center; gap: .5rem; min-height: 4.75rem; }
+  .cabecera--editorial .marca { margin: 0; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: .2rem; text-align: center; padding-block: .6rem; }
+  .cabecera--editorial .marca-nombre { white-space: normal; overflow: visible; font-family: var(--fuente-titulos); font-style: italic; font-size: clamp(1.35rem, 4.6vw, 2.2rem); line-height: 1.1; color: var(--c-primario); }
+  .marca-eslogan { display: none; }
+  .cabecera-lado { display: flex; align-items: center; min-width: 0; }
+  .cabecera-lado--fin { justify-content: flex-end; }
+  .cabecera-tel { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; min-width: 2.75rem; font-size: .85rem; text-decoration: none; color: var(--c-primario); }
+  .cabecera-tel-numero { display: none; }
+  .cabecera--editorial .menu-movil summary { justify-content: center; width: 2.75rem; height: 2.75rem; color: var(--c-primario); }
+  .cabecera--editorial .menu-movil-panel { border-top: 1px solid var(--linea); text-align: center; }
+  .cabecera--editorial .cabecera-nav { justify-content: center; flex-wrap: wrap; gap: .5rem 2.4rem; padding-block: .95rem; border-top: 1px solid var(--linea); }
+  .cabecera--editorial .cabecera-nav a { font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .22em; padding-block: .2rem; border-bottom: 1px solid transparent; }
+  .cabecera--editorial .cabecera-nav a:hover { border-bottom-color: var(--c-acento); }
+  .cabecera--editorial .cabecera-cta { min-height: 2.6rem; padding: .55rem 1.1rem; white-space: nowrap; }
+  @media (min-width: 900px) {
+    .cabecera-alta { grid-template-columns: 1fr auto 1fr; min-height: 7rem; gap: 2rem; }
+    .cabecera-tel-numero { display: inline; }
+    .marca-eslogan { display: block; max-width: 36rem; font-size: .68rem; text-transform: uppercase; letter-spacing: .22em; opacity: .7; line-height: 1.5; }
+  }
+
+  /* Portada */
+  .portada { display: flex; flex-direction: column; min-height: calc(100vh - 4.75rem); min-height: calc(100svh - 4.75rem); padding-top: clamp(3rem, 8vh, 6rem); padding-bottom: 2.5rem; }
+  @media (min-width: 900px) { .portada { min-height: calc(100svh - 10rem); } }
+  .portada-texto { max-width: 54rem; text-align: center; }
+  .portada-titulo { margin-top: 1.1rem; font-style: italic; font-size: clamp(2.6rem, 7.6vw, 5.5rem); line-height: 1.04; color: var(--c-primario); }
+  .portada-linea { display: block; width: 5rem; height: 1px; margin: 2rem auto; background: var(--c-texto); opacity: .45; }
+  .portada-entradilla { max-width: 36rem; margin-inline: auto; font-size: 1.15rem; opacity: .85; }
+  .portada-botones { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 2rem; margin-top: 2.25rem; }
+  .portada-foto { flex: 1 1 auto; display: flex; min-height: 18rem; margin-top: clamp(2.5rem, 6vh, 4rem); }
+  .portada-foto img { min-height: 18rem; }
+  @media (min-width: 900px) { .portada-foto, .portada-foto img { min-height: 26rem; } }
+  .portada-datos { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem 2.5rem; margin-top: 2rem; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; }
+  .portada-datos li { display: inline-flex; align-items: center; gap: .6rem; }
+
+  /* Bandas de fondo */
+  .banda-papel { background: var(--papel); }
+  .banda-tierra { background: var(--tierra); }
+
+  /* Habitaciones en zigzag */
+  .zigzag { display: grid; gap: clamp(4rem, 9vw, 7.5rem); }
+  .zigzag-fila { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 768px) {
+    .zigzag-fila { grid-template-columns: 7fr 5fr; gap: 4.5rem; }
+    .zigzag-fila--invertida { grid-template-columns: 5fr 7fr; }
+    .zigzag-fila--invertida .zigzag-foto { order: 2; }
+  }
+  .zigzag-fila--sola { grid-template-columns: 1fr !important; max-width: 44rem; margin-inline: auto; }
+  .zigzag-foto, .zigzag-texto { min-width: 0; }
+  .zigzag-num { font-family: var(--fuente-titulos); font-style: italic; font-size: 1.1rem; color: var(--acento-legible); }
+  .zigzag-titulo { margin-top: .35rem; font-style: italic; font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
+  .ficha-datos { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; margin-top: 1.1rem; padding-block: .8rem; border-block: 1px solid var(--linea); font-size: .92rem; }
+  .ficha-precio { font-family: var(--fuente-titulos); font-size: 1.25rem; color: var(--acento-legible); }
+  .extras { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: .5rem 1.25rem; margin-top: 1.5rem; font-size: .93rem; }
+  .extras li { display: flex; align-items: flex-start; gap: .5rem; }
+  .extras svg { margin-top: .35rem; }
+
+  /* Entorno: tarjetas apaisadas */
+  .apaisadas { display: grid; gap: 1.5rem; }
+  @media (min-width: 1024px) { .apaisadas { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+  .apaisada { display: grid; background: var(--hoja); box-shadow: var(--sombra); }
+  @media (min-width: 560px) { .apaisada { grid-template-columns: 42% minmax(0, 1fr); } }
+  .apaisada .foto { box-shadow: none; }
+  .apaisada-foto { width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  @media (min-width: 560px) { .apaisada-foto { aspect-ratio: auto; min-height: 12rem; } }
+  .apaisada-icono { display: grid; place-items: center; min-height: 8rem; background: color-mix(in srgb, var(--c-primario) 12%, var(--c-fondo)); color: var(--c-primario); }
+  .apaisada-texto { padding: 1.5rem 1.5rem 1.75rem; }
+  .apaisada-titulo { font-style: italic; font-size: 1.45rem; }
+
+  /* Galería: retícula asimétrica */
+  .reticula { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 10rem; grid-auto-flow: dense; gap: .75rem; }
+  .reticula li { min-width: 0; }
+  .reticula-grande { grid-column: span 2; grid-row: span 2; }
+  .reticula-ancha { grid-column: span 2; }
+  @media (min-width: 768px) {
+    .reticula { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 13rem; gap: 1.25rem; }
+    .reticula-grande { grid-column: span 4; }
+    .reticula-media { grid-column: span 2; }
+    .reticula-ancha { grid-column: span 3; }
+  }
+
+  /* Servicios: rejilla de iconos sin tarjeta */
+  .iconos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.75rem 1.5rem; text-align: center; }
+  @media (min-width: 640px) { .iconos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .iconos { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); } }
+  .iconos-circulo { display: inline-grid; place-items: center; width: 4.25rem; height: 4.25rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--c-primario) 45%, transparent); color: var(--c-primario); }
+  .iconos-titulo { margin-top: 1rem; font-size: 1.2rem; }
+  .iconos-texto { max-width: 16rem; margin: .35rem auto 0; font-size: .9rem; line-height: 1.55; opacity: .78; }
+
+  /* Opiniones */
+  .cita-grande { max-width: 48rem; margin-inline: auto; text-align: center; }
+  .cita-grande blockquote { font-family: var(--fuente-titulos); font-style: italic; font-size: clamp(1.45rem, 3.2vw, 2.25rem); line-height: 1.38; }
+  .cita-autor { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem .9rem; margin-top: 1.5rem; font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .22em; }
+  .cita-nota { font-weight: 400; color: var(--acento-legible); }
+  .citas { display: grid; gap: 2.5rem; margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--linea); }
+  @media (min-width: 768px) { .citas { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
+  .citas figure { padding-left: 1.5rem; border-left: 1px solid var(--c-acento); }
+  .cita-texto { font-family: var(--fuente-titulos); font-style: italic; font-size: 1.2rem; line-height: 1.5; }
+  .citas .cita-autor { justify-content: flex-start; margin-top: 1rem; }
+
+  /* Cómo llegar */
+  .direccion-grande { font-family: var(--fuente-titulos); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.3; color: var(--c-primario); }
+  .llegar { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .llegar li { display: flex; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--linea); }
+  .llegar-titulo { font-weight: 600; }
+
+  /* Reservas y formularios */
+  .panel { min-width: 0; padding: 1.5rem; background: var(--hoja); box-shadow: var(--sombra); }
+  @media (min-width: 768px) { .panel { padding: 2.5rem; } }
+  .nota { margin-top: 1.75rem; padding-left: 1rem; border-left: 2px solid var(--c-acento); font-size: .93rem; font-style: italic; opacity: .85; }
+  .formulario-fila { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  .formulario-fila--fechas { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+  .campo { min-width: 0; }
+  .campo label { font-size: .85rem; }
+  .campo input, .campo textarea { min-width: 0; max-width: 100%; border-radius: 0; background: #fff; border-color: color-mix(in srgb, var(--c-texto) 22%, transparent); }
+  .campo input:focus, .campo textarea:focus { border-color: var(--c-primario); }
+
+  /* Contacto */
+  .vias { display: grid; gap: 2rem; text-align: center; }
+  @media (min-width: 768px) { .vias { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); } }
+  .vias li { display: flex; flex-direction: column; align-items: center; gap: .4rem; min-width: 0; }
+  .vias-etiqueta { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .24em; opacity: .7; }
+  .vias-dato { max-width: 100%; font-family: var(--fuente-titulos); font-size: clamp(1.3rem, 2.4vw, 1.7rem); color: var(--c-primario); text-decoration: none; }
+  .vias-dato:hover { text-decoration: underline; text-decoration-color: var(--c-acento); text-underline-offset: 5px; }
+
+  /* Pie claro */
+  .pie--editorial { padding-top: 4.5rem; background: var(--papel); border-top: 1px solid var(--linea); }
+  .pie-editorial { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 768px) { .pie-editorial { grid-template-columns: 7fr 5fr; gap: 5rem; } }
+  .pie--editorial .pie-nombre { font-family: var(--fuente-titulos); font-style: italic; font-size: 1.6rem; font-weight: 400; }
+  .pie-direccion { margin-top: 1rem; font-family: var(--fuente-titulos); font-size: clamp(1.7rem, 4.2vw, 2.9rem); line-height: 1.2; color: var(--c-primario); }
+  .pie-direccion a { text-decoration: none; }
+  .pie-direccion a:hover { text-decoration: underline; text-decoration-color: var(--c-acento); text-decoration-thickness: 1px; text-underline-offset: 8px; }
+  .pie-lista--datos { margin-top: 1.5rem; gap: .4rem; font-size: .95rem; }
+  .pie-mapa { display: block; }
+  .pie-mapa img { display: block; box-shadow: var(--sombra); }
+  .pie-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 2rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--linea); font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .2em; }
+  .pie-menu a { text-decoration: none; }
+  .pie-menu a:hover { text-decoration: underline; }
+  .pie--editorial .pie-legal { margin-top: 1.5rem; }
+  .pie-noexpertise a { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Páginas sueltas */
+  .texto-largo h2 { font-family: var(--fuente-titulos); font-weight: 400; font-style: italic; font-size: 1.6rem; color: var(--c-primario); }
+  .error-cifra { font-family: var(--fuente-titulos); font-style: italic; font-size: clamp(5rem, 18vw, 9rem); line-height: 1; color: var(--c-acento); }
+}
