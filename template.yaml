@@ -14,8 +14,65 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: natural
 plan_minimo: presencia
-version: 1.0.0
+version: 1.1.0
 base: astrowind
 demo_url: https://demo-plantilla-alojamiento-rural.noexpertise.com
 activa: true
 orden: 90
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu alojamiento"
+    pregunta: "¿Cómo se llama tu casa rural u hotel y qué la hace especial?"
+    ayuda: "Dónde está, para quién es (familias, parejas, grupos) y qué se respira allí."
+    tipo: texto
+    campos: [nombre, eslogan, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.items, seo.descripcion]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde estáis y cómo os pueden llamar o reservar?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, secciones.reservas.enlace_reservas, redes.instagram, redes.facebook]
+  - id: habitaciones
+    titulo: "Tus habitaciones"
+    pregunta: "Cuéntame tus habitaciones o casas: nombre, cuántas personas y el precio si quieres. Una por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.habitaciones.habitaciones]
+  - id: servicios
+    titulo: "Servicios"
+    pregunta: "¿Qué ofrecéis? Desayuno, wifi, mascotas, chimenea, aparcamiento…"
+    tipo: texto
+    campos: [secciones.servicios.titulo, secciones.servicios.items]
+  - id: entorno
+    titulo: "Qué hacer cerca"
+    pregunta: "¿Qué se puede hacer cerca? Rutas, pueblos, sitios para comer… Uno por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.entorno.items]
+  - id: como-llegar
+    titulo: "Cómo llegar"
+    pregunta: "¿Cómo se llega? En coche, en tren, en autobús…"
+    tipo: texto
+    campos: [secciones.como-llegar.titulo, secciones.como-llegar.texto, secciones.como-llegar.items]
+  - id: reservas
+    titulo: "Reservas"
+    pregunta: "¿Cómo se reserva? Cuéntame lo que tiene que saber quien quiera venir."
+    tipo: texto
+    campos: [secciones.reservas.titulo, secciones.reservas.texto, secciones.reservas.nota]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, alguna más."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.galeria.galeria, secciones.como-llegar.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso
