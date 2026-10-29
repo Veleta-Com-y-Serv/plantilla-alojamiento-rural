@@ -122,6 +122,17 @@ secciones:
     enlace_reservas: ""
     nota: "Estancia mínima de dos noches en fines de semana y puentes. Cancelación gratuita hasta siete días antes."
 
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de hacer la maleta
+    preguntas:
+      - { pregunta: "¿A qué hora se entra y se sale?", respuesta: "La llegada es de 16:00 a 21:00 y la salida, hasta las 12:00. Si vienes más tarde, avísanos y te esperamos." }
+      - { pregunta: "¿El desayuno está incluido?", respuesta: "Sí. Desayuno casero con pan del horno del pueblo, mermeladas de la huerta y huevos de nuestras gallinas." }
+      - { pregunta: "¿Puedo venir con mi perro?", respuesta: "Sí, en El Pajar, que tiene jardín cerrado. Dínoslo al reservar." }
+      - { pregunta: "¿Hay estancia mínima?", respuesta: "Dos noches en fines de semana y puentes. Entre semana puedes venir una sola noche." }
+      - { pregunta: "¿Y si tengo que cancelar?", respuesta: "La cancelación es gratuita hasta siete días antes de la llegada." }
+
   contacto:
     activa: true
     antetitulo: Contacto

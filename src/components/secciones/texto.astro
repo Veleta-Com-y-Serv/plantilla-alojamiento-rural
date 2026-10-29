@@ -3,6 +3,7 @@
 // sin foto, una sola columna estrecha. Lista con iconos y botón opcionales.
 // Lo usan los apartados nuevos que pide el cliente (site.yaml: `tipo: texto`).
 import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
 import Seccion from '../ui/Seccion.astro';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
@@ -15,7 +16,7 @@ const s = seccion(Astro.props.id);
   s && (
     <Seccion id={Astro.props.id}>
       <div class:list={['grid items-center gap-12', s.imagen ? 'md:grid-cols-2 md:gap-20' : 'max-w-2xl mx-auto']}>
-        {s.imagen && <Imagen src={s.imagen} alt="" ancho={1200} alto={900} class="foto aspect-[4/3] w-full object-cover" />}
+        {s.imagen && <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} class="foto aspect-[4/3] w-full object-cover" />}
         <div>
           <Titular antetitulo={s.antetitulo} titulo={s.titulo} class="!mb-6" />
           <div class="space-y-4 leading-relaxed opacity-90">

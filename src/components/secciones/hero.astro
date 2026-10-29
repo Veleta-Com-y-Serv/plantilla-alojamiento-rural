@@ -3,6 +3,7 @@
 // debajo, la foto ancha con esquinas rectas y sombra suave. `items`: detalles cortos (con icono) bajo la foto.
 // Sin `cta`, el botón principal llama por teléfono.
 import { seccion, site, tel, externo } from '../../data/site';
+import { altHero } from '../../lib/seo';
 import Imagen from '../ui/Imagen.astro';
 import Icono from '../ui/Icono.astro';
 interface Props { id: string; primera?: boolean }
@@ -31,7 +32,7 @@ const nueva = (u: string) => (externo(u) ? { rel: 'noopener', target: '_blank' }
       </div>
       {s.imagen && (
         <div class="contenedor contenedor--ancho portada-foto">
-          <Imagen src={s.imagen} alt="" ancho={1920} alto={1080} prioridad={primera} class="foto h-full w-full object-cover" />
+          <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1080} prioridad={primera} class="foto h-full w-full object-cover" />
         </div>
       )}
       {s.items.length > 0 && (

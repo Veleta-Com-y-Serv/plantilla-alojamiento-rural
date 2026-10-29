@@ -11,10 +11,11 @@ secciones:
   - { id: opiniones, nombre: Opiniones }
   - { id: como-llegar, nombre: Cómo llegar }
   - { id: reservas, nombre: Reservas }
+  - { id: preguntas, nombre: Preguntas frecuentes }
   - { id: contacto, nombre: Contacto }
 estilo: natural
 plan_minimo: presencia
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-alojamiento-rural.noexpertise.com
 activa: true
@@ -62,6 +63,12 @@ asistente:
     pregunta: "¿Cómo se reserva? Cuéntame lo que tiene que saber quien quiera venir."
     tipo: texto
     campos: [secciones.reservas.titulo, secciones.reservas.texto, secciones.reservas.nota]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
   - id: fotos
     titulo: "Tus fotos"
     pregunta: "Pon una foto de portada y, si quieres, alguna más."
