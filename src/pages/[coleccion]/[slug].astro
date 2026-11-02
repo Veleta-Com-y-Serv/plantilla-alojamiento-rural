@@ -1,0 +1,180 @@
+---
+// Ficha de un elemento con `detalle` (src/lib/paginas.ts, listas de src/data/fichas.ts): /habitaciones/<slug>/.
+// Diseño editorial de la casa rural: migas y titular en cursiva sobre fondo crema, foto grande con esquinas rectas
+// y sombra suave; debajo el `detalle` en una columna de lectura con la tabla de datos y la caja de reserva (verde
+// bosque) al lado; franja de fotos (`imagenes`) en papel y otras habitaciones de la misma lista en tono tierra.
+import Base from '../../layouts/Base.astro';
+import Imagen from '../../components/ui/Imagen.astro';
+import Icono from '../../components/ui/Icono.astro';
+import Titular from '../../components/ui/Titular.astro';
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import { fichas, relacionadas, resumen } from '../../lib/paginas';
+import type { Ficha } from '../../lib/paginas';
+import { altGaleria, jsonLdFicha, jsonLdMigas, urlBase } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return fichas().map((f) => ({ params: { coleccion: f.def.ruta, slug: f.slug }, props: { f } }));
+}
+
+interface Props { f: Ficha }
+const { f } = Astro.props;
+const base = urlBase(Astro.site);
+const nombreSeccion = String(f.seccion.antetitulo || f.seccion.titulo || f.def.nombre).trim();
+const migas = [
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: 'Habitaciones', ruta: `/#${f.idSeccion}` },
+  { nombre: f.titulo, ruta: f.url },
+];
+const c = site.contacto;
+const reserva = seccion('reservas') ? '/#reservas' : site.boton_cabecera?.url || '/#contacto';
+const textoReserva = 'Consultar fechas';
+const wa = whatsapp(c.whatsapp, `Hola, quiero información sobre ${f.titulo}`);
+const datos = f.datos.filter((d) => d.clave !== 'precio');
+const otras = relacionadas(f, 3);
+const descripcion = resumen(f.texto || f.detalle[0] || '');
+---
+
+<Base titulo={f.titulo} descripcion={descripcion} imagen={f.imagen} ld={[jsonLdMigas(base, migas), jsonLdFicha(base, f)]}>
+  <section class="fx-cabeza">
+    <div class="contenedor">
+      <nav aria-label="Migas de pan" class="fx-migas">
+        <ol>
+          {migas.map((m, i) => (
+            <li>{i < migas.length - 1 ? <a href={m.ruta}>{m.nombre}</a> : <span aria-current="page">{m.nombre}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+      <div class="fx-titular">
+        <p class="antetitulo">{nombreSeccion}</p>
+        <h1 class="fx-h1">{f.titulo}</h1>
+        <span class="filete" aria-hidden="true" />
+        {f.texto && <p class="titular-texto">{f.texto}</p>}
+        {f.precio && <p class="fx-precio">{f.precio}</p>}
+        <div class="fx-botones">
+          <a class="btn" href={reserva}>{textoReserva}</a>
+          {wa && <a class="btn-sec" href={wa} target="_blank" rel="noopener">WhatsApp</a>}
+        </div>
+      </div>
+      {f.imagen ? (
+        <div class="fx-foto">
+          <Imagen src={f.imagen} alt={f.titulo} ancho={1600} alto={900} prioridad class="foto h-full w-full object-cover" />
+        </div>
+      ) : (
+        <div class="fx-icono" aria-hidden="true"><Icono nombre={f.icono || 'cama'} tam={88} /></div>
+      )}
+    </div>
+  </section>
+
+  <section class="seccion fx-cuerpo-banda">
+    <div class="contenedor fx-cuerpo">
+      <article class="fx-detalle">
+        {f.detalle.map((p) => <p>{p}</p>)}
+      </article>
+      <aside class="fx-lado">
+        {(datos.length > 0 || f.precio) && (
+          <div class="fx-datos">
+            <h2 class="fx-lado-titulo">En pocas palabras</h2>
+            <dl>
+              {f.precio && <div><dt>Precio</dt><dd class="fx-precio-dd">{f.precio}</dd></div>}
+              {datos.map((d) => <div><dt>{d.etiqueta}</dt><dd>{d.valor}</dd></div>)}
+            </dl>
+          </div>
+        )}
+        <div class="fx-reserva">
+          <p class="fx-reserva-titulo">¿Te guardamos esta habitación?</p>
+          <p>Cuéntanos las fechas y te respondemos en el día.</p>
+          <a class="fx-reserva-btn" href={reserva}>{textoReserva}</a>
+          {c.telefono && <a class="fx-tel" href={tel(c.telefono)}><Icono nombre="telefono" tam={18} /> {c.telefono}</a>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {f.imagenes.length > 0 && (
+    <section class="fx-fotos" aria-label={`Fotos de ${f.titulo}`}>
+      <div class="contenedor">
+        <ul class="fx-galeria">
+          {f.imagenes.map((src, i) => (
+            <li><Imagen src={src} alt={`${f.titulo}: ${altGaleria(i).toLowerCase()}`} ancho={800} alto={600} class="foto h-full w-full object-cover" /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {otras.length > 0 && (
+    <section class="seccion fx-otras-banda">
+      <div class="contenedor">
+        <Titular antetitulo="Seguir mirando" titulo="Otras habitaciones" />
+        <ul class="fx-otras">
+          {otras.map((o) => (
+            <li class="fx-otra">
+              {o.imagen && <Imagen src={o.imagen} alt="" ancho={800} alto={600} class="foto aspect-[3/2] w-full object-cover" />}
+              <h3><a href={o.url} class="fx-otra-enlace">{o.titulo}</a></h3>
+              {o.texto && <p class="fx-otra-texto">{o.texto}</p>}
+              <p class="fx-otra-pie">
+                {o.precio && <span class="fx-precio-dd">{o.precio}</span>}
+                <span class="fx-otra-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-12"><a class="btn-sec" href={`/#${f.idSeccion}`}>Ver todas las habitaciones</a></p>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .fx-cabeza { padding-block: 1.25rem 3.5rem; border-bottom: 1px solid var(--linea); }
+  .fx-migas ol { display: flex; flex-wrap: wrap; gap: .1rem .6rem; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+  .fx-migas li { display: inline-flex; align-items: center; gap: .6rem; min-width: 0; }
+  .fx-migas li + li::before { content: "/"; opacity: .4; }
+  .fx-migas a { color: var(--c-primario); text-decoration: none; min-height: 2.75rem; display: inline-flex; align-items: center; }
+  .fx-migas a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .fx-migas [aria-current] { opacity: .65; overflow-wrap: anywhere; }
+  .fx-titular { max-width: 44rem; margin: 1.5rem auto 2.75rem; text-align: center; }
+  .fx-h1 { margin-top: .75rem; font-style: italic; font-size: clamp(2.3rem, 6vw, 4.2rem); overflow-wrap: anywhere; }
+  .fx-titular .filete { margin-inline: auto; }
+  .fx-precio { margin-top: 1.25rem; font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--acento-legible); }
+  .fx-botones { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: center; align-items: center; margin-top: 1.75rem; }
+  .fx-botones a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; }
+  .fx-foto { aspect-ratio: 3 / 2; max-width: 64rem; margin-inline: auto; }
+  .fx-icono { display: grid; place-items: center; aspect-ratio: 3 / 2; max-width: 40rem; margin-inline: auto; background: var(--tierra); color: var(--c-primario); border: 1px solid var(--linea); }
+  .fx-cuerpo { display: grid; gap: 3rem; }
+  .fx-detalle { max-width: 40rem; font-size: 1.1rem; }
+  .fx-detalle p + p { margin-top: 1.3rem; }
+  .fx-detalle p:first-child { font-family: var(--fuente-titulos); font-style: italic; font-size: 1.35rem; line-height: 1.5; color: var(--c-primario); }
+  .fx-lado { display: grid; gap: 1.75rem; align-content: start; }
+  .fx-lado-titulo { font-style: italic; font-size: 1.4rem; margin-bottom: .75rem; color: var(--c-primario); }
+  .fx-datos { border-top: 1px solid var(--c-acento); padding-top: 1.25rem; }
+  .fx-datos dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 0; border-top: 1px solid var(--linea); }
+  .fx-datos dl > div:first-child { border-top: 0; }
+  .fx-datos dt { font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .18em; opacity: .7; padding-top: .2rem; }
+  .fx-datos dd { text-align: right; min-width: 0; overflow-wrap: anywhere; }
+  .fx-precio-dd { font-family: var(--fuente-titulos); font-size: 1.15rem; color: var(--acento-legible); }
+  .fx-reserva { display: grid; gap: .9rem; padding: 2rem 1.5rem; background: var(--c-primario); color: #fff; box-shadow: var(--sombra); }
+  .fx-reserva-titulo { font-family: var(--fuente-titulos); font-style: italic; font-size: 1.55rem; line-height: 1.2; }
+  .fx-reserva-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: .85rem 1.5rem; background: var(--c-fondo); color: var(--c-primario); font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; text-decoration: none; }
+  .fx-reserva-btn:hover { background: #fff; }
+  .fx-reserva :focus-visible { outline-color: #fff; }
+  .fx-tel { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; color: #fff; text-decoration: none; }
+  .fx-fotos { padding-block: 3.5rem; background: var(--papel); }
+  .fx-galeria { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+  .fx-galeria li { aspect-ratio: 3 / 2; overflow: hidden; }
+  .fx-otras-banda { background: var(--tierra); }
+  .fx-otras { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .fx-otra { position: relative; display: flex; flex-direction: column; gap: .7rem; }
+  .fx-otra h3 { margin-top: .6rem; font-style: italic; font-size: 1.55rem; }
+  .fx-otra-enlace { text-decoration: none; color: inherit; }
+  .fx-otra-enlace::after { content: ""; position: absolute; inset: 0; }
+  .fx-otra-enlace:focus-visible { outline: none; }
+  .fx-otra:has(.fx-otra-enlace:focus-visible) { outline: 2px solid var(--c-primario); outline-offset: 6px; }
+  .fx-otra-texto { opacity: .85; }
+  .fx-otra-pie { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: .5rem; }
+  .fx-otra-ver { display: inline-flex; align-items: center; gap: .3rem; font-size: .76rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: var(--c-primario); }
+  @media (min-width: 1024px) {
+    .fx-cuerpo { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 6rem; align-items: start; }
+    .fx-lado { position: sticky; top: 2rem; }
+  }
+</style>

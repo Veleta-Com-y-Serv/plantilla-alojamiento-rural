@@ -55,9 +55,45 @@ secciones:
     titulo: Tres habitaciones, cada una con su luz
     texto: "Todas con baño propio, ropa de cama de algodón y vistas a la huerta o a la sierra."
     habitaciones:
-      - { nombre: El Castaño, texto: "La más tranquila de la casa, con vigas de castaño y ventana a la huerta. Cama de matrimonio de 160.", precio: "desde 85 €/noche", personas: "2 personas", extras: "Baño con ducha, desayuno incluido, calefacción, vistas a la huerta", imagen: /fotos/habitacion-1.jpg }
-      - { nombre: La Solana, texto: "Abuhardillada y luminosa, con un pequeño balcón orientado al sur para ver caer la tarde sobre la sierra.", precio: "desde 95 €/noche", personas: "2 personas + cuna", extras: "Balcón, bañera exenta, desayuno incluido, escritorio", imagen: /fotos/habitacion-2.jpg }
-      - { nombre: El Pajar, texto: "En el antiguo pajar, con dos alturas: cama de matrimonio abajo y dos camas en el altillo. Ideal para familias.", precio: "desde 120 €/noche", personas: "Hasta 4 personas", extras: "Salón con chimenea, entrada independiente, admite mascotas, desayuno incluido", imagen: /fotos/habitacion-3.jpg }
+      - nombre: El Castaño
+        texto: "La más tranquila de la casa, con vigas de castaño y ventana a la huerta. Cama de matrimonio de 160."
+        precio: "desde 85 €/noche"
+        personas: "2 personas"
+        extras: "Baño con ducha, desayuno incluido, calefacción, vistas a la huerta"
+        imagen: /fotos/habitacion-1.jpg
+        imagenes: "/fotos/galeria-2.jpg; /fotos/galeria-3.jpg"
+        detalle: |
+          El Castaño es el dormitorio más sosegado de la casa. Está en la planta baja del lado de la huerta, con vigas de castaño a la vista, paredes de cal y una ventana baja desde la que se ven los bancales por la mañana. Aquí casi no llega el ruido de la calle, y por eso lo eligen quienes vienen a descansar de verdad.
+
+          La cama de matrimonio es de 160, con colchón firme y ropa de algodón que lavamos con jabón neutro. Hay una pequeña mesa junto a la ventana para leer o tomar el café, un armario de madera con perchas de sobra y calefacción que se regula desde la habitación. El baño es propio, con ducha amplia y toallas gruesas.
+
+          El desayuno está incluido y se sirve en el comedor o, si hace buen tiempo, bajo el emparrado. Si llegas con ganas de pasear, te dibujamos en un mapa el camino a la judería y al castañar. Es una habitación pensada para parejas que buscan silencio, buen sueño y unos días sin prisas.
+      - nombre: La Solana
+        texto: "Abuhardillada y luminosa, con un pequeño balcón orientado al sur para ver caer la tarde sobre la sierra."
+        precio: "desde 95 €/noche"
+        personas: "2 personas + cuna"
+        extras: "Balcón, bañera exenta, desayuno incluido, escritorio"
+        imagen: /fotos/habitacion-2.jpg
+        imagenes: "/fotos/galeria-4.jpg; /fotos/galeria-5.jpg"
+        detalle: |
+          La Solana ocupa la buhardilla de la casa y es la habitación más luminosa. Tiene el techo inclinado con vigas pintadas de blanco, suelo de madera y un pequeño balcón orientado al sur donde cabe una mesa y dos sillas. Al final de la tarde, la luz dorada entra hasta la cama y la sierra se tiñe de color.
+
+          Es una habitación para dos personas, y si viajáis con un bebé podemos colocar una cuna. La cama es grande y el cabecero de madera reciclada es obra de un carpintero del pueblo. El baño tiene una bañera exenta junto a la ventana, pensada para quienes disfrutan de un baño largo después de caminar.
+
+          Hay un escritorio con buena luz por si necesitas trabajar un rato, y wifi en toda la casa. El desayuno casero está incluido: pan del horno del pueblo, mermeladas de la huerta y fruta de temporada. Para subir hasta aquí hay una escalera de madera con barandilla; si tienes dudas sobre el acceso, escríbenos y lo hablamos antes de reservar.
+      - nombre: El Pajar
+        texto: "En el antiguo pajar, con dos alturas: cama de matrimonio abajo y dos camas en el altillo. Ideal para familias."
+        precio: "desde 120 €/noche"
+        personas: "Hasta 4 personas"
+        extras: "Salón con chimenea, entrada independiente, admite mascotas, desayuno incluido"
+        imagen: /fotos/habitacion-3.jpg
+        imagenes: "/fotos/galeria-1.jpg; /fotos/galeria-3.jpg"
+        detalle: |
+          El Pajar es el antiguo pajar de la finca, reformado con respeto por los muros de piedra y las vigas originales. Tiene entrada independiente desde el jardín, así que se siente como una pequeña casa dentro de la casa, y es la mejor opción para familias o para quienes viajan con su perro.
+
+          Se reparte en dos alturas. Abajo están el salón con chimenea de leña, un rincón de lectura y la cama de matrimonio; arriba, en el altillo, hay dos camas individuales a las que se sube por una escalera de madera. La leña corre de nuestra cuenta y siempre dejamos el fuego preparado para la primera noche. El baño es completo y tiene calefacción de suelo.
+
+          Las mascotas son bienvenidas y disponen de un jardín cerrado donde pueden correr sin riesgo. El desayuno está incluido y podemos servirlo en el propio salón si prefieres no salir. Es el lugar ideal para pasar un fin de semana de otoño con niños, castañas asadas y juegos de mesa junto al fuego.
 
   entorno:
     activa: true

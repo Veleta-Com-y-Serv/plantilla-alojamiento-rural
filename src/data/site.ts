@@ -15,7 +15,7 @@ export interface Noticia { fecha: string; titulo: string; texto?: string; url?: 
  * Habitación o alojamiento. `precio` siempre como cadena («desde 95 €/noche»); `personas` también («2 personas»);
  * `extras` es UNA cadena separada por comas («Baño propio, chimenea, terraza»), nunca una lista.
  */
-export interface Habitacion { nombre: string; texto: string; precio: string; personas: string; extras: string; imagen: string }
+export interface Habitacion { nombre: string; texto: string; precio: string; personas: string; extras: string; imagen: string; detalle?: string; imagenes?: string; slug?: string }
 
 export interface Seccion {
   activa: boolean;
@@ -79,6 +79,7 @@ function normalizar(s: Crudo = {}): Seccion {
     habitaciones: lista<Crudo>(s.habitaciones)
       .filter((h) => texto(h.nombre))
       .map((h) => ({
+        ...h,
         nombre: texto(h.nombre),
         texto: texto(h.texto),
         precio: texto(h.precio),
